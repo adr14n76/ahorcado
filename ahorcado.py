@@ -17,6 +17,7 @@ def chr_check(chr):
         else:
             return False
 
+# Sistema de puntuación
 
 def run():
 
@@ -31,17 +32,27 @@ def run():
     # Número de caracteres de la palabra
     len_word=len(rand_word)
     hang_word=list("_"*len_word)
-
+    show_word=[" __ "]*len_word
+    
     lives=len_word*2
 
+    # No se saldra del bucle hasta que rand_word no sea igual a hang_word y si lives es superior a 0
     while rand_word!=hang_word and lives>0:
 
+        # Limpia la pantalla
         os.system("cls")
-        print(hang_word)
-        print("Tienes "+ str(lives) +" vidas.")        
 
+        # Creamos una variable llamada show_word con la que mostraremos en mayusculas los caracteres de la palabra conforme estas se vayan acertando
+        for i,c in enumerate(hang_word):
+            if c.isalpha()==True:
+                show_word[i]=" "+c+" "        
+
+        # Juntamos la lista y lo ponemos en mayusculas
+        print("".join(show_word).upper())    
+        print("Tienes "+ str(lives) +" vidas.")
+
+        # Pedimos el caracter
         chr=input()
-
         # Excepcción en caso de que el valor introducido sea erroneo
         try: 
             if(chr_check(chr)==False):
@@ -50,8 +61,6 @@ def run():
             print(ve)
             return False
 
-              
-        
         # Iteración que guarda en i el indice y en c el caracter de los dos valores que devuelve la función enumerate
         for i,c in enumerate(rand_word) :
             if c == chr:
@@ -72,10 +81,11 @@ def run():
         if found_c!=True or found_r==True:
             lives=lives-1
 
-    if lives<=0:
-        print("Te has muerto por noob.")
+    os.system("cls")
+    if lives==0:        
+        print("Te has muerto por noob, la palabra es : "+"".join(rand_word).upper())
     else:
-        print("Ganaste")
+        print("Ganaste, la palabra es : "+"".join(rand_word).upper())
 
 if __name__ == '__main__':
     run()
